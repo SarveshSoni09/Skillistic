@@ -1,5 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap");
+
 .App {
-  text-align: center;
+  font-family: "Merriweather";
+  font-size: 20px;
+  font-weight: 300;
 }
 
 .App-logo {
@@ -35,4 +39,191 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+body {
+  margin: 0;
+  background-image: url("./Assets/Img/BGlogin.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-size: cover;
+  color: white;
+}
+
+/* #index-body{
+  margin: 0;
+  background-image: url("./Assets/Img/BGmain.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-size: cover;
+  color: white;
+} */
+
+.MuiToolbar-root {
+  height: 80px;
+  background: rgba(255, 240, 240, 0.18);
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4.5px);
+  -webkit-backdrop-filter: blur(4.5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar .navlinks {
+  display: flex;
+  margin-left: auto;
+}
+
+.navbar .navlinks .navlink {
+  margin-left: 48px;
+  color: white;
+  text-decoration: none;
+}
+
+.landing {
+  height: min-content;
+  margin: auto;
+  position: absolute;
+  top: 80px;
+  left: auto;
+  bottom: 0;
+  right: 120px;
+  width: 47%;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#hero-links {
+  margin: 40px 0 20px 0;
+}
+
+.glass-btn {
+  font-size: 20px;
+  text-decoration: none;
+  margin-right: 16px;
+  padding: 8px 24px;
+  color: white;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-btn:hover {
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+#login-form {
+  padding: 40px;
+  text-align: center;
+  width: 25%;
+  height: 60%;
+  margin: auto;
+  position: absolute;
+  top: 80px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+#user-sidebar {
+  width: 15%;
+  height: 100%;
+}
+
+.glass-sidebar {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 0 8px 8px 0;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.light {
+  color: white;
+}
+
+.mb-2 {
+  margin-bottom: 8px;
+}
+
+#user-dashboard {
+  height: 100vh;
+}
+
+.Dashboard-content {
+  height: calc(100vh - 84px);
+}
+
+.skill-content {
+  text-align: center;
+  width: 85vw;
+  font-family: "Merriweather";
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+.skill-img {
+  height: 60vh;
+  width: 60vw;
+  margin-left: 12.5vw;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.skill-form {
+  height: 75vh;
+  width: 50vw;
+  margin-left: calc(17.5vw - 8px);
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.status-content {
+  padding: 24px;
+}
+
+.skill-status {
+  height: 35vh;
+  width: 100%;
+  text-align: center;
+  /* display: block; */
+  /* padding: 16px; */
+  /* margin-left: 12.5vw; */
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
