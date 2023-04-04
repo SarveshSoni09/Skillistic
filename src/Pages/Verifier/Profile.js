@@ -1,13 +1,14 @@
 import React from "react";
-import SignedNavbar from "../Components/SignedNavbar";
+import VSignedNavbar from "../../Components/VSignedNavbar";
 // import Sidebar from '../Components/Sidebar'
 
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
+import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
-import { styled } from "@mui/material/styles";
+// import { styled } from "@mui/material/styles";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -48,7 +49,7 @@ function a11yProps(index) {
 //   },
 // });
 
-const UserDashboard = () => {
+const Profile = () => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -89,7 +90,7 @@ const UserDashboard = () => {
 
   return (
     <div id="user-dashboard">
-      <SignedNavbar />
+      <VSignedNavbar />
       <div className="Dashboard-content">
         <Box
           sx={{
@@ -116,48 +117,91 @@ const UserDashboard = () => {
             <Tab
               sx={TabSx}
               // style={{ fontFamily: "Merriweather" }}
-              label="Skill 1"
+              label="Your Reputation"
               {...a11yProps(0)}
             />
-            <Tab sx={TabSx} label="Skill 2" {...a11yProps(1)} />
-            <Tab sx={TabSx} label="Skill 3" {...a11yProps(2)} />
+            <Tab sx={TabSx} label="Verifications" {...a11yProps(1)} />
+            <Tab sx={TabSx} label="Your Skillset" {...a11yProps(2)} />
           </Tabs>
           <TabPanel sx={{ color: "White" }} value={value} index={0}>
             <div className="skill-content">
-              <h3>Skill 1</h3>
+              <h3>Your Reputation</h3>
               <div className="skill-img">
-                <h1 style={{ padding: "15vh 0" }}>Skill 1</h1>
-                <h4>
-                  This is to certify that Mr. ABC has acquired the following
-                  score for Skill 1
-                </h4>
-                <h2>Score: 86.70%</h2>
+                <h1 style={{ padding: "5vh 0" }}>84.23</h1>
+                <Grid
+                  container
+                  rowGap={1}
+                  columnGap={1}
+                  sx={{ padding: "16px" }}
+                >
+                  <Grid item xs={5.95}>
+                    <div className="darkGlass">
+                      Based on past Verifications, your new Reputation is 84.23
+                    </div>
+                  </Grid>
+                  <Grid item xs={5.95}>
+                    <div className="darkGlass">
+                      Your Reputation has increased by 2.13 recently
+                    </div>
+                  </Grid>
+                </Grid>
               </div>
             </div>
           </TabPanel>
           <TabPanel value={value} index={1}>
             <div className="skill-content">
-              <h3>Skill 2</h3>
+              <h3>Your Verifications</h3>
               <div className="skill-img">
-                <h1 style={{ padding: "15vh 0" }}>Skill 2</h1>
-                <h4>
-                  This is to certify that Mr. ABC has acquired the following
-                  score for Skill 2
-                </h4>
-                <h2>Score: 92.42%</h2>
+                <h1 style={{ padding: "5vh 0" }}>
+                  You have Completed 37 Verifications
+                </h1>
+                <Grid
+                  container
+                  rowGap={1}
+                  columnGap={1}
+                  sx={{ padding: "16px" }}
+                >
+                  <Grid item xs={5.95} sx={{ height: "100%" }}>
+                    <div className="darkGlass">
+                      20 Verifications of Web Development
+                    </div>
+                  </Grid>
+                  <Grid item xs={5.95} sx={{ height: "100%" }}>
+                    <div className="darkGlass">
+                      11 Verifications of App Deveopment
+                    </div>
+                  </Grid>
+                  <Grid item xs={5.95} sx={{ height: "100%" }}>
+                    <div className="darkGlass">6 Verifications of UI/UX</div>
+                  </Grid>
+                </Grid>
               </div>
             </div>
           </TabPanel>
           <TabPanel value={value} index={2}>
             <div className="skill-content">
-              <h3>Skill 3</h3>
+              <h3>Your Skillset</h3>
               <div className="skill-img">
-                <h1 style={{ padding: "15vh 0" }}>Skill 3</h1>
-                <h4>
-                  This is to certify that Mr. ABC has acquired the following
-                  score for Skill 3
-                </h4>
-                <h2>Score: 68.99%</h2>
+                <h1 style={{ padding: "5vh 0" }}>Mastery of skills</h1>
+                <Grid
+                  container
+                  rowGap={1}
+                  columnGap={1}
+                  sx={{ padding: "16px" }}
+                >
+                  <Grid item xs={5.95} sx={{ height: "100%" }}>
+                    <div className="darkGlass">Web Development</div>
+                  </Grid>
+                  <Grid item xs={5.95} sx={{ height: "100%" }}>
+                    <div className="darkGlass">Application Deveopment</div>
+                  </Grid>
+                  <Grid item xs={5.95} sx={{ height: "100%" }}>
+                    <div className="darkGlass">UI/UX Designing</div>
+                  </Grid>
+                  <Grid item xs={5.95} sx={{ height: "100%" }}>
+                    <div className="darkGlass">Software Development</div>
+                  </Grid>
+                </Grid>
               </div>
             </div>
           </TabPanel>
@@ -167,4 +211,4 @@ const UserDashboard = () => {
   );
 };
 
-export default UserDashboard;
+export default Profile;

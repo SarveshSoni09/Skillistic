@@ -1,0 +1,28 @@
+{
+  "skill": [
+    {
+      "skill": "Web Development",
+      "status": "Verified",
+      "score": "86.70",
+      "certi-link": ""
+    },
+    {
+      "skill": "App Development",
+      "status": "Verified",
+      "score": "94.42",
+      "certi-link": ""
+    },
+    {
+      "skill": "UI/UX Design",
+      "status": "Verified",
+      "score": "68.99",
+      "certi-link": ""
+    },
+    {
+      "skill": "Data Analysis",
+      "status": "In Progress",
+      "score": "",
+      "certi-link": ""
+    }
+  ]
+}

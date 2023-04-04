@@ -1,0 +1,123 @@
+{
+  "skill": [
+    {
+      "skill": "Web Development",
+      "status": "Verified",
+      "score": "86.70",
+      "certi-link": "",
+      "can-verify": true,
+      "verified": [
+        {
+          "edu-score": "10",
+          "course-score": "10",
+          "exp-score": "10",
+          "proj-score": "9",
+          "old-reputation": "10",
+          "total-score": "98.25",
+          "new-reputation": "9.95"
+        },
+        {
+          "edu-score": "9.5",
+          "course-score": "8",
+          "exp-score": "10",
+          "proj-score": "9",
+          "old-reputation": "10",
+          "total-score": "98.25",
+          "new-reputation": "9.95"
+        }
+      ],
+      "pending": [
+        { "display-name": "ABC Verification" },
+        { "display-name": "GHI Verification" },
+        { "display-name": "LMN Verification" },
+        { "display-name": "XYZ Verification" }
+      ]
+    },
+    {
+      "skill": "App Development",
+      "status": "Verified",
+      "score": "86.70",
+      "certi-link": "",
+      "can-verify": true,
+      "verified": [
+        {
+          "edu-score": "10",
+          "course-score": "10",
+          "exp-score": "10",
+          "proj-score": "9",
+          "old-reputation": "10",
+          "total-score": "98.25",
+          "new-reputation": "9.95"
+        },
+        {
+          "edu-score": "9.5",
+          "course-score": "8",
+          "exp-score": "10",
+          "proj-score": "9",
+          "old-reputation": "10",
+          "total-score": "98.25",
+          "new-reputation": "9.95"
+        }
+      ],
+      "pending": [
+        { "display-name": "DEF Verification" },
+        { "display-name": "PQR Verification" },
+        { "display-name": "UVW Verification" },
+        { "display-name": "RST Verification" }
+      ]
+    },
+    {
+      "skill": "UI/UX Design",
+      "status": "Verified",
+      "score": "86.70",
+      "certi-link": "",
+      "can-verify": true,
+      "verified": [
+        {
+          "id": "ahedbkjanaeodihaejcklejsildajwas",
+          "edu-score": "9",
+          "course-score": "9",
+          "exp-score": "8",
+          "proj-score": "10",
+          "old-reputation": "10",
+          "total-score": "98.25",
+          "new-reputation": "9.95"
+        },
+        {
+          "id": "ahedbkjanaaekcjsnodihaejckldajws",
+          "edu-score": "9.5",
+          "course-score": "8",
+          "exp-score": "10",
+          "proj-score": "9",
+          "old-reputation": "10",
+          "total-score": "98.25",
+          "new-reputation": "9.95"
+        }
+      ],
+      "pending": [
+        { "display-name": "MIJ Verification" },
+        { "display-name": "SSS Verification" },
+        { "display-name": "MIJ Verification" },
+        { "display-name": "SSS Verification" }
+      ]
+    }
+  ],
+  "pending": [
+    {
+      "pending-skill": "Web Development",
+      "id": "jkchabejaiuwhxiaecbkabwdkalsjfis"
+    },
+    {
+      "pending-skill": "Web Development",
+      "id": "jkcopkojaiuwhxiaecbkabwdkalsjfis"
+    },
+    {
+      "pending-skill": "App Development",
+      "id": "jkchabejaiuwhopopcbkabwdkalsjfis"
+    },
+    {
+      "pending-skill": "UI/UX Design",
+      "id": "jkchabejaiuwhxiaeatsfbwdkalsjfis"
+    }
+  ]
+}
