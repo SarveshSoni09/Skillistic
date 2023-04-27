@@ -1,0 +1,91 @@
+User:
+    UserID
+    Username
+    Password
+    Name
+    Wallet
+    Skills = []
+
+Skills:
+    SkillID
+    UserID
+    SkillName
+    Status
+    Score
+
+SkillDetails:
+    SkillDetsID
+    SkillID
+    SkillName
+    NumberOfVerifiers
+    D1
+    D1S
+    D1U
+    D2
+    D2S
+    D2U
+    C1
+    C1S
+    C1P
+    C2
+    C2S
+    C2P
+    C3
+    C3S
+    C3P
+    WC1
+    WP1
+    WD1
+    WDesc1
+    WC2
+    WP2
+    WD2
+    WDesc2
+    WC3
+    WP3
+    WD3
+    WDesc3
+    P1
+    PD1
+    PL1
+    P2
+    PD2
+    PL2
+    P3
+    PD3
+    PL3
+    GHP
+    LIP
+    OP1
+    OPL1
+    OP2
+    OPL2
+    OP3
+    OPL3
+    OP4
+    OPL4
+    EthCost
+    TransactionID
+
+Verifiers:
+    UserID
+    Username
+    Password
+    Name
+    Wallet
+    Skills = []
+    Verifications = []
+    Pending = []
+    Reputation
+
+Verifications:
+    VerificationID
+    UserID (Verifier)
+    SkillID (User)
+    EduScore
+    CourseScore
+    ExpScore
+    ProjScore
+    ProfileScore
+    OverallScore
+    TransactionID   

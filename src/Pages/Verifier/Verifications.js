@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import VSignedNavbar from "../../Components/VSignedNavbar";
 // import Sidebar from '../Components/Sidebar'
 
@@ -14,6 +14,20 @@ import { Link } from "react-router-dom";
 
 import GlassButton from "../../Components/Controls/GlassButton";
 // import { styled } from "@mui/material/styles";
+
+import { getAuth } from "firebase/auth";
+import { db, storage } from "../../FirebaseConfig";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import {
+  doc,
+  setDoc,
+  getDoc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+  collection,
+} from "firebase/firestore";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -49,6 +63,51 @@ function a11yProps(index) {
 }
 
 const Verifications = () => {
+  const auth = getAuth();
+  const currentUser = auth.currentUser;
+  const user = currentUser ? currentUser.uid : null;
+  const userRef = user ? doc(db, "Users", user) : null;
+  const skillRef = collection(db, "Skills");
+
+  const [expertise, setExpertise] = useState([]);
+  const [pending, setPending] = useState([]);
+  const [requests, setRequests] = useState([]);
+
+  useEffect(() => {
+    if (userRef) {
+      const fetchData = async () => {
+        const docSnap = await getDoc(userRef);
+        if (docSnap.exists()) {
+          const expert = docSnap.data().ExpertIn;
+          setExpertise(expert);
+          if (docSnap.data().PendingVerifs) {
+            const pendingv = docSnap.data().PendingVerifs;
+            setPending(pendingv);
+          }
+        }
+      };
+      fetchData();
+    }
+  }, [pending]);
+  useEffect(() => {
+    if (userRef) {
+      const fetchData = async () => {
+        const userSnap = await getDoc(userRef);
+        const skillQuery = query(skillRef, where("Status", "==", "Pending"));
+        const docSnap = await getDocs(skillQuery);
+        setRequests([]);
+        docSnap.forEach((doc) => {
+          if (userSnap.data().ExpertIn.includes(doc.data().SkillName)) {
+            setRequests((prevData) => [...prevData, doc.data()]);
+          }
+        });
+      };
+      fetchData();
+    }
+  }, []);
+  // console.log(requests);
+  // console.log(pending);
+
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -86,7 +145,6 @@ const Verifications = () => {
       },
     },
   ];
-  // console.log(skills.skill, skills.pending);
 
   return (
     <div id="user-dashboard">
@@ -115,47 +173,84 @@ const Verifications = () => {
                 border: "1px solid rgba(255, 255, 255, 0.1)",
               }}
             >
-              {skills.skill.map((skill, index) =>
-                skill.status === "Verified" ? (
-                  <Tab sx={TabSx} label={skill.skill} {...a11yProps(index)} />
-                ) : (
-                  <></>
-                )
-              )}
+              {expertise.map((skill, index) => (
+                <Tab sx={TabSx} label={skill} {...a11yProps(index)} />
+              ))}
             </Tabs>
             <div style={{ width: "68vw" }}>
-              {skills.skill.map((skill, index) =>
-                skill.status === "Verified" ? (
-                  <TabPanel sx={{ color: "White" }} value={value} index={index}>
-                    <Grid container rowGap={1} columnGap={1}>
-                      {skill.pending.map((verify) => (
+              {expertise.map((skill, index) => (
+                <TabPanel sx={{ color: "White" }} value={value} index={index}>
+                  <Grid container rowGap={1} columnGap={1}>
+                    {pending[skill] ? (
+                      pending[skill].map((verify) => (
                         <Grid item xs={3.9}>
-                          <Link className="verification" to="/Scoring">
-                            {verify["display-name"]}
+                          <Link
+                            className="verification"
+                            to="/Scoring"
+                            state={{ data: verify }}
+                          >
+                            {verify["SkillName"]}
                           </Link>
                         </Grid>
-                      ))}
-                    </Grid>
-                  </TabPanel>
-                ) : (
-                  <></>
-                )
-              )}
+                      ))
+                    ) : (
+                      <></>
+                    )}
+                  </Grid>
+                </TabPanel>
+              ))}
             </div>
           </Box>
         </div>
         <div className="VRSideBar">
           <div className="RSbHeader">New Requests</div>
           <div className="NewRequests">
-            {skills.pending.map((req) => (
-              <div className="NewRequest">
-                <div className="RequestTitle">{req["pending-skill"]}</div>
-                <div className="RequestBtns">
-                  <GlassButton name="Reject"></GlassButton>
-                  <GlassButton name="Accept"></GlassButton>
+            {requests.map((req) =>
+              pending[req.SkillName]?.some(
+                (pendingReq) => pendingReq.SkillID === req.SkillID
+              ) ? null : (
+                <div className="NewRequest">
+                  <div className="RequestTitle">{req["SkillName"]}</div>
+                  <div className="RequestBtns">
+                    <GlassButton name="Reject" onClick={() => {}}></GlassButton>
+                    <GlassButton
+                      name="Accept"
+                      onClick={async () => {
+                        if (pending.length === 0) {
+                          const updatedPending = { [req.SkillName]: [req] };
+                          setPending(updatedPending);
+                          await updateDoc(userRef, {
+                            PendingVerifs: updatedPending,
+                          });
+                        } else {
+                          if (pending[req.SkillName]) {
+                            pending[req.SkillName].push(req);
+                            await updateDoc(userRef, {
+                              PendingVerifs: pending,
+                            });
+                            const filteredReq = requests.filter(
+                              (obj) => obj.SkillID !== req.SkillID
+                            );
+                            setRequests(filteredReq);
+                          } else {
+                            setPending((prevData) => ({
+                              ...prevData,
+                              [req.SkillName]: [req],
+                            }));
+                            await updateDoc(userRef, {
+                              PendingVerifs: {
+                                ...pending, // use the updated `pending` state here
+                                [req.SkillName]: [req],
+                              },
+                            });
+                          }
+                        }
+                      }}
+                    ></GlassButton>
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            )}
           </div>
         </div>
       </div>

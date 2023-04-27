@@ -1,63 +1,12 @@
-import React, { useState } from "react";
-import SignedNavbar from "../../Components/SignedNavbar";
-import useScript from "../../Components/Hooks/useScript";
+import React from "react";
+import { textValidator } from "../../Components/Controls/Validation";
 import { useForm } from "../../Components/Controls/UseForm";
 
 import DarkGlassInput from "../../Components/Controls/DarkGlassInput";
 import GlassButton from "../../Components/Controls/GlassButton";
-
-import { Link, useLocation } from "react-router-dom";
-
-import { textValidator } from "../../Components/Controls/Validation";
-
-import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import { Grid } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import UploadFileIcon from "@mui/icons-material/UploadFile";
 
 const VerifyCourses = (props) => {
-  // File Upload Code
-
-  useScript("//freeimage.host/sdk/pup.js", "https://freeimage.host/upload");
-  const [selectedFile, setSelectedFile] = useState();
-  const [isFilePicked, setIsFilePicked] = useState(false);
-
-  const changeHandler = (event) => {
-    setSelectedFile(event.target.files[0]);
-    setIsFilePicked(true);
-  };
-
-  const handleUpload = () => {
-    const formData = new FormData();
-    formData.append("File", selectedFile);
-
-    fetch(
-      "https://freeimage.host/api/1/upload?key=6d207e02198a847aa98d0a2a901485a5",
-      {
-        method: "POST",
-        body: formData,
-      }
-    )
-      .then((response) => response.json())
-      .then((result) => {
-        console.log("Success:", result);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
-
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
   var initialFValues = {
     // Course 1 variables
     Course1Name: "",
@@ -76,40 +25,88 @@ const VerifyCourses = (props) => {
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
     // Validation for Course 1
-    // if('Course1Name' in fieldValues) {
-    //   temp.Course1Name = textValidator(fieldValues.Course1Name)
-    // }
-    // if('CSpecialization1' in fieldValues) {
-    //   temp.CSpecialization1 = textValidator(fieldValues.CSpecialization1)
-    // }
-    // if('DPlatform1' in fieldValues) {
-    //   temp.DPlatform1 = textValidator(fieldValues.DPlatform1)
-    // }
+    if ("Course1Name" in fieldValues) {
+      if (fieldValues.Course1Name !== "") {
+        temp.Course1Name = textValidator(fieldValues.Course1Name);
+      } else {
+        temp.CSpecialization1 = "";
+        temp.CPlatform1 = "";
+      }
+    }
+    if ("CSpecialization1" in fieldValues) {
+      if (values.Course1Name === "" && fieldValues.CSpecialization1 !== "") {
+        temp.CSpecialization1 = "Enter Course 1 Name First";
+      } else if (
+        values.Course1Name !== "" &&
+        fieldValues.CSpecialization1 === ""
+      ) {
+        temp.CSpecialization1 = textValidator(fieldValues.CSpecialization1);
+      } else {
+        temp.CSpecialization1 = "";
+      }
+    }
+    if ("CPlatform1" in fieldValues) {
+      if (values.Course1Name === "" && fieldValues.CPlatform1 !== "") {
+        temp.CPlatform1 = "Enter Course 1 Name First";
+      } else if (values.Course1Name !== "" && fieldValues.CPlatform1 === "") {
+        temp.CPlatform1 = textValidator(fieldValues.CPlatform1);
+      } else {
+        temp.CPlatform1 = "";
+      }
+    }
 
     // Validation for Course 2
-    // if('Course2Name' in fieldValues) {
-    //   temp.Course2Name = textValidator(fieldValues.Course2Name)
-    // }
-    // if('CSpecialization2' in fieldValues) {
-    //   temp.CSpecialization2 = textValidator(fieldValues.CSpecialization2)
-    // }
-    // if('DPlatform2' in fieldValues) {
-    //   temp.DPlatform2 = textValidator(fieldValues.DPlatform2)
-    // }
+    if ("Course2Name" in fieldValues) {
+      if (fieldValues.Course2Name !== "") {
+        temp.Course2Name = textValidator(fieldValues.Course2Name);
+      }
+    }
+    if ("CSpecialization2" in fieldValues) {
+      if (values.Course2Name === "" && fieldValues.CSpecialization2 !== "") {
+        temp.CSpecialization2 = "Enter Course 2 Name First";
+      } else if (
+        values.Course2Name !== "" &&
+        fieldValues.CSpecialization2 === ""
+      ) {
+        temp.CSpecialization2 = textValidator(fieldValues.CSpecialization2);
+      }
+    }
+    if ("CPlatform2" in fieldValues) {
+      if (values.Course2Name === "" && fieldValues.CPlatform2 !== "") {
+        temp.CPlatform2 = "Enter Course 2 Name First";
+      } else if (values.Course2Name !== "" && fieldValues.CPlatform2 === "") {
+        temp.CPlatform2 = textValidator(fieldValues.CPlatform2);
+      }
+    }
 
     // Validation for Course 3
-    // if('Course3Name' in fieldValues) {
-    //   temp.Course3Name = textValidator(fieldValues.Course3Name)
-    // }
-    // if('CSpecialization3' in fieldValues) {
-    //   temp.CSpecialization3 = textValidator(fieldValues.CSpecialization3)
-    // }
-    // if('DPlatform3' in fieldValues) {
-    //   temp.DPlatform3 = textValidator(fieldValues.DPlatform3)
-    // }
+    if ("Course3Name" in fieldValues) {
+      if (fieldValues.Course3Name !== "") {
+        temp.Course3Name = textValidator(fieldValues.Course3Name);
+      }
+    }
+    if ("CSpecialization3" in fieldValues) {
+      if (values.Course3Name === "" && fieldValues.CSpecialization3 !== "") {
+        temp.CSpecialization3 = "Enter Course 3 Name First";
+      } else if (
+        values.Course3Name !== "" &&
+        fieldValues.CSpecialization3 === ""
+      ) {
+        temp.CSpecialization3 = textValidator(fieldValues.CSpecialization3);
+      }
+    }
+    if ("CPlatform3" in fieldValues) {
+      if (values.Course3Name === "" && fieldValues.CPlatform3 !== "") {
+        temp.CPlatform3 = "Enter Course 3 Name First";
+      } else if (values.Course3Name !== "" && fieldValues.CPlatform3 === "") {
+        temp.CPlatform3 = textValidator(fieldValues.CPlatform3);
+      }
+    }
     setErrors({
       ...temp,
     });
+    if (fieldValues === values)
+      return Object.values(temp).every((x) => x === "");
   };
 
   const { values, setValues, errors, setErrors, handleInputChange } = useForm(
@@ -154,13 +151,16 @@ const VerifyCourses = (props) => {
             ></DarkGlassInput>
           </Grid>
           <Grid item xs={6}>
-            <GlassButton
-              variant="contained"
-              fullWidth
-              sx={{ height: "100%" }}
-              endIcon={<UploadFileIcon />}
-              name="Upload Course Certificate"
-            ></GlassButton>
+            <input
+              type="file"
+              name="Course1"
+              onChange={(e) => props.handleUpload(e.target.files[0], "Course1")}
+              style={{
+                height: "100%",
+                fontSize: "16px",
+                fontFamily: "Merriweather",
+              }}
+            ></input>
           </Grid>
         </Grid>
         <Grid container spacing={1}>
@@ -195,13 +195,16 @@ const VerifyCourses = (props) => {
             ></DarkGlassInput>
           </Grid>
           <Grid item xs={6}>
-            <GlassButton
-              variant="contained"
-              fullWidth
-              sx={{ height: "100%" }}
-              endIcon={<UploadFileIcon />}
-              name="Upload Course Certificate"
-            ></GlassButton>
+            <input
+              type="file"
+              name="Course2"
+              onChange={(e) => props.handleUpload(e.target.files[0], "Course2")}
+              style={{
+                height: "100%",
+                fontSize: "16px",
+                fontFamily: "Merriweather",
+              }}
+            ></input>
           </Grid>
         </Grid>
         <Grid container spacing={1}>
@@ -236,13 +239,16 @@ const VerifyCourses = (props) => {
             ></DarkGlassInput>
           </Grid>
           <Grid item xs={6}>
-            <GlassButton
-              variant="contained"
-              fullWidth
-              sx={{ height: "100%" }}
-              endIcon={<UploadFileIcon />}
-              name="Upload Course Certificate"
-            ></GlassButton>
+            <input
+              type="file"
+              name="Course3"
+              onChange={(e) => props.handleUpload(e.target.files[0], "Course3")}
+              style={{
+                height: "100%",
+                fontSize: "16px",
+                fontFamily: "Merriweather",
+              }}
+            ></input>
           </Grid>
         </Grid>
         <div
@@ -255,14 +261,13 @@ const VerifyCourses = (props) => {
           <GlassButton
             variant="contained"
             name="Next"
-            // component={Link}
-            // to="/VerifyExperiences"
             onClick={() => {
-              props.mergeData({ values });
-              props.setThisPage(false);
-              props.setNewPage(true);
-              props.completed(true);
-              console.log(props.personData);
+              if (validate()) {
+                props.mergeData({ values });
+                props.setThisPage(false);
+                props.setNewPage(true);
+                props.completed(true);
+              }
             }}
           ></GlassButton>
         </div>

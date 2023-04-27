@@ -5,9 +5,10 @@ import { useForm } from "../../Components/Controls/UseForm";
 import DarkGlassInput from "../../Components/Controls/DarkGlassInput";
 import GlassButton from "../../Components/Controls/GlassButton";
 
-import { textValidator } from "../../Components/Controls/Validation";
+import { scoreValidator } from "../../Components/Controls/Validation";
 
 import { Grid } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const ScoreEducation = (props) => {
   var initialFValues = {
@@ -18,11 +19,15 @@ const ScoreEducation = (props) => {
     let temp = { ...errors };
     // Validation for Education Score
     if ("EducationScore" in fieldValues) {
-      temp.Degree1Name = textValidator(fieldValues.Degree1Name);
+      temp.EducationScore = scoreValidator(fieldValues.EducationScore);
+      fieldValues.EducationScore = parseFloat(fieldValues.EducationScore);
     }
     setErrors({
       ...temp,
     });
+
+    if (fieldValues === values)
+      return Object.values(temp).every((x) => x === "");
   };
 
   const { values, setValues, errors, setErrors, handleInputChange } = useForm(
@@ -33,7 +38,7 @@ const ScoreEducation = (props) => {
 
   return (
     <div className="verification-content">
-      <h3 style={{ fontFamily: "Merriweather" }}>ABC Education Verification</h3>
+      <h3 style={{ fontFamily: "Merriweather" }}>Education Verification</h3>
       <div
         className="verification-details"
         style={{ padding: "8px", margin: "0px 24px" }}
@@ -64,7 +69,14 @@ const ScoreEducation = (props) => {
                   fullWidth
                   sx={{ height: "100%" }}
                   endIcon={<DownloadIcon />}
+                  onClick={() =>
+                    props.handleDownloadClick(
+                      props.personData.Degree1URL,
+                      "Degree1"
+                    )
+                  }
                 ></GlassButton>
+                {/* <Link to={props.personData.Degree1URL}>Download Here</Link> */}
               </Grid>
             </Grid>
           )}
@@ -111,7 +123,7 @@ const ScoreEducation = (props) => {
               padding: "8px 0",
             }}
           >
-            <Grid item xs={2}>
+            <Grid item xs={3}>
               <DarkGlassInput
                 fullWidth
                 required={true}
@@ -122,19 +134,19 @@ const ScoreEducation = (props) => {
                 error={errors.EducationScore}
               ></DarkGlassInput>
             </Grid>
-            <Grid item xs={8}></Grid>
+            <Grid item xs={7}></Grid>
             <Grid item xs={2}>
               <GlassButton
                 name="Next"
                 fullWidth
                 variant="contained"
                 onClick={() => {
-                  props.mergeScore({ values });
-                  props.setThisScore(false);
-                  props.setNewScore(true);
-                  props.completed(true);
-                  console.log(props.personScore);
-                  // console.log(values);
+                  if (validate()) {
+                    props.mergeScore({ values });
+                    props.setThisScore(false);
+                    props.setNewScore(true);
+                    props.completed(true);
+                  }
                 }}
               ></GlassButton>
             </Grid>

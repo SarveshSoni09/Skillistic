@@ -1,32 +1,14 @@
-import React, { useState } from "react";
-import SignedNavbar from "../../Components/SignedNavbar";
-import useScript from "../../Components/Hooks/useScript";
+import React from "react";
 import { useForm } from "../../Components/Controls/UseForm";
 
 import DarkGlassInput from "../../Components/Controls/DarkGlassInput";
 import GlassButton from "../../Components/Controls/GlassButton";
 
-import { Link } from "react-router-dom";
-
 import { textValidator } from "../../Components/Controls/Validation";
 
-import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import { Grid } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import UploadFileIcon from "@mui/icons-material/UploadFile";
 
 const VerifyProjects = (props) => {
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
   var initialFValues = {
     // Project 1 variables
     ProjectName1: "",
@@ -57,82 +39,179 @@ const VerifyProjects = (props) => {
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
     // Validation for Project 1
-    // if('ProjectName1' in fieldValues) {
-    //   temp.ProjectName1 = textValidator(fieldValues.ProjectName1)
-    // }
-    // if('PTechStack1' in fieldValues) {
-    //   temp.PTechStack1 = textValidator(fieldValues.PTechStack1)
-    // }
-    // if('PDesc1' in fieldValues) {
-    //   temp.PDesc1 = textValidator(fieldValues.PDesc1)
-    // }
-    // if('PLink1' in fieldValues) {
-    //   temp.PLink1 = textValidator(fieldValues.PLink1)
-    // }
+    if ("ProjectName1" in fieldValues) {
+      if (fieldValues.ProjectName1 !== "") {
+        temp.ProjectName1 = textValidator(fieldValues.ProjectName1);
+      } else {
+        temp.PDesc1 = "";
+        temp.PLink1 = "";
+      }
+    }
+    if ("PDesc1" in fieldValues) {
+      if (values.ProjectName1 === "" && fieldValues.PDesc1 !== "") {
+        temp.PDesc1 = "Enter Project 1 Name First";
+      } else if (values.ProjectName1 !== "" && fieldValues.PDesc1 === "") {
+        temp.PDesc1 = textValidator(fieldValues.PDesc1);
+      } else {
+        temp.PDesc1 = "";
+      }
+    }
+    if ("PLink1" in fieldValues) {
+      if (values.ProjectName1 === "" && fieldValues.PLink1 !== "") {
+        temp.PLink1 = "Enter Project 1 Name First";
+      } else if (values.ProjectName1 !== "" && fieldValues.PLink1 === "") {
+        temp.PLink1 = textValidator(fieldValues.PLink1);
+      } else {
+        temp.PLink1 = "";
+      }
+    }
 
     // Validation for Project 2
-    // if('ProjectName2' in fieldValues) {
-    //   temp.ProjectName2 = textValidator(fieldValues.ProjectName2)
-    // }
-    // if('PTechStack2' in fieldValues) {
-    //   temp.PTechStack2 = textValidator(fieldValues.PTechStack2)
-    // }
-    // if('PDesc2' in fieldValues) {
-    //   temp.PDesc2 = textValidator(fieldValues.PDesc2)
-    // }
-    // if('PLink2' in fieldValues) {
-    //   temp.PLink2 = textValidator(fieldValues.PLink2)
-    // }
+    if ("ProjectName2" in fieldValues) {
+      if (fieldValues.ProjectName2 !== "") {
+        temp.ProjectName2 = textValidator(fieldValues.ProjectName2);
+      } else {
+        temp.PDesc2 = "";
+        temp.PLink2 = "";
+      }
+    }
+    if ("PDesc2" in fieldValues) {
+      if (values.ProjectName2 === "" && fieldValues.PDesc2 !== "") {
+        temp.PDesc2 = "Enter Project 2 Name First";
+      } else if (values.ProjectName2 !== "" && fieldValues.PDesc2 === "") {
+        temp.PDesc2 = textValidator(fieldValues.PDesc2);
+      } else {
+        temp.PDesc2 = "";
+      }
+    }
+    if ("PLink2" in fieldValues) {
+      if (values.ProjectName2 === "" && fieldValues.PLink2 !== "") {
+        temp.PLink2 = "Enter Project 2 Name First";
+      } else if (values.ProjectName2 !== "" && fieldValues.PLink2 === "") {
+        temp.PLink2 = textValidator(fieldValues.PLink2);
+      } else {
+        temp.PLink2 = "";
+      }
+    }
 
     // Validation for Project 3
-    // if('ProjectName3' in fieldValues) {
-    //   temp.ProjectName3 = textValidator(fieldValues.ProjectName3)
-    // }
-    // if('PTechStack3' in fieldValues) {
-    //   temp.PTechStack3 = textValidator(fieldValues.PTechStack3)
-    // }
-    // if('PDesc3' in fieldValues) {
-    //   temp.PDesc3 = textValidator(fieldValues.PDesc3)
-    // }
-    // if('PLink3' in fieldValues) {
-    //   temp.PLink3 = textValidator(fieldValues.PLink3)
-    // }
+    if ("ProjectName3" in fieldValues) {
+      if (fieldValues.ProjectName3 !== "") {
+        temp.ProjectName3 = textValidator(fieldValues.ProjectName3);
+      } else {
+        temp.PDesc3 = "";
+        temp.PLink3 = "";
+      }
+    }
+    if ("PDesc3" in fieldValues) {
+      if (values.ProjectName3 === "" && fieldValues.PDesc3 !== "") {
+        temp.PDesc3 = "Enter Project 3 Name First";
+      } else if (values.ProjectName3 !== "" && fieldValues.PDesc3 === "") {
+        temp.PDesc3 = textValidator(fieldValues.PDesc3);
+      } else {
+        temp.PDesc3 = "";
+      }
+    }
+    if ("PLink3" in fieldValues) {
+      if (values.ProjectName3 === "" && fieldValues.PLink3 !== "") {
+        temp.PLink3 = "Enter Project 3 Name First";
+      } else if (values.ProjectName3 !== "" && fieldValues.PLink3 === "") {
+        temp.PLink3 = textValidator(fieldValues.PLink3);
+      } else {
+        temp.PLink3 = "";
+      }
+    }
 
     // Validation for Profiles
+
     // if('GHProfile' in fieldValues) {
     //   temp.GHProfile = textValidator(fieldValues.GHProfile)
     // }
     // if('LIProfile' in fieldValues) {
     //   temp.LIProfile = textValidator(fieldValues.LIProfile)
     // }
-    // if('OtherProfile1Name' in fieldValues) {
-    //   temp.OtherProfile1Name = textValidator(fieldValues.OtherProfile1Name)
-    // }
-    // if('OtherProfile1Link' in fieldValues) {
-    //   temp.OtherProfile1Link = textValidator(fieldValues.OtherProfile1Link)
-    // }
-    // if('OtherProfile2Name' in fieldValues) {
-    //   temp.OtherProfile2Name = textValidator(fieldValues.OtherProfile2Name)
-    // }
-    // if('OtherProfile2Link' in fieldValues) {
-    //   temp.OtherProfile2Link = textValidator(fieldValues.OtherProfile2Link)
-    // }
-    // if('OtherProfile3Name' in fieldValues) {
-    //   temp.OtherProfile3Name = textValidator(fieldValues.OtherProfile3Name)
-    // }
-    // if('OtherProfile3Link' in fieldValues) {
-    //   temp.OtherProfile3Link = textValidator(fieldValues.OtherProfile3Link)
-    // }
-    // if('OtherProfile4Name' in fieldValues) {
-    //   temp.OtherProfile4Name = textValidator(fieldValues.OtherProfile4Name)
-    // }
-    // if('OtherProfile4Link' in fieldValues) {
-    //   temp.OtherProfile4Link = textValidator(fieldValues.OtherProfile4Link)
-    // }
 
+    if ("Profile1Name" in fieldValues) {
+      if (fieldValues.Profile1Name !== "") {
+        temp.Profile1Name = textValidator(fieldValues.Profile1Name);
+      } else {
+        temp.Profile1Link = "";
+      }
+    }
+    if ("Profile1Link" in fieldValues) {
+      if (values.Profile1Name === "" && fieldValues.Profile1Link !== "") {
+        temp.Profile1Link = "Enter Other Profile 1 Name First";
+      } else if (
+        values.Profile1Name !== "" &&
+        fieldValues.Profile1Link === ""
+      ) {
+        temp.Profile1Link = textValidator(fieldValues.Profile1Link);
+      } else {
+        temp.Profile1Link = "";
+      }
+    }
+    if ("Profile2Name" in fieldValues) {
+      if (fieldValues.Profile2Name !== "") {
+        temp.Profile2Name = textValidator(fieldValues.Profile2Name);
+      } else {
+        temp.Profile2Link = "";
+      }
+    }
+    if ("Profile2Link" in fieldValues) {
+      if (values.Profile2Name === "" && fieldValues.Profile2Link !== "") {
+        temp.Profile2Link = "Enter Other Profile 2 Name First";
+      } else if (
+        values.Profile2Name !== "" &&
+        fieldValues.Profile2Link === ""
+      ) {
+        temp.Profile2Link = textValidator(fieldValues.Profile2Link);
+      } else {
+        temp.Profile2Link = "";
+      }
+    }
+    if ("Profile3Name" in fieldValues) {
+      if (fieldValues.Profile3Name !== "") {
+        temp.Profile3Name = textValidator(fieldValues.Profile3Name);
+      } else {
+        temp.Profile3Link = "";
+      }
+    }
+    if ("Profile3Link" in fieldValues) {
+      if (values.Profile3Name === "" && fieldValues.Profile3Link !== "") {
+        temp.Profile3Link = "Enter Other Profile 3 Name First";
+      } else if (
+        values.Profile3Name !== "" &&
+        fieldValues.Profile3Link === ""
+      ) {
+        temp.Profile3Link = textValidator(fieldValues.Profile3Link);
+      } else {
+        temp.Profile3Link = "";
+      }
+    }
+    if ("Profile4Name" in fieldValues) {
+      if (fieldValues.Profile4Name !== "") {
+        temp.Profile4Name = textValidator(fieldValues.Profile4Name);
+      } else {
+        temp.Profile4Link = "";
+      }
+    }
+    if ("Profile4Link" in fieldValues) {
+      if (values.Profile4Name === "" && fieldValues.Profile4Link !== "") {
+        temp.Profile4Link = "Enter Other Profile 4 Name First";
+      } else if (
+        values.Profile4Name !== "" &&
+        fieldValues.Profile4Link === ""
+      ) {
+        temp.Profile4Link = textValidator(fieldValues.Profile4Link);
+      } else {
+        temp.Profile4Link = "";
+      }
+    }
     setErrors({
       ...temp,
     });
+    if (fieldValues === values)
+      return Object.values(temp).every((x) => x === "");
   };
 
   const { values, setValues, errors, setErrors, handleInputChange } = useForm(
@@ -340,14 +419,13 @@ const VerifyProjects = (props) => {
           <GlassButton
             variant="contained"
             name="Next"
-            // component={Link}
-            // to="/VerifySubmit"
             onClick={() => {
-              props.mergeData({ values });
-              // props.setThisPage(false);
-              // props.setNewPage(true);
-              console.log(props.personData);
-              props.completed(true);
+              if (validate()) {
+                props.mergeData({ values });
+                props.setThisPage(false);
+                props.setNewPage(true);
+                props.completed(true);
+              }
             }}
           ></GlassButton>
         </div>

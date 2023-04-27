@@ -1,53 +1,13 @@
-import React, { useState, useEffect } from "react";
-import useScript from "../../Components/Hooks/useScript";
+import React from "react";
 import { useForm } from "../../Components/Controls/UseForm";
 
 import DarkGlassInput from "../../Components/Controls/DarkGlassInput";
 import GlassButton from "../../Components/Controls/GlassButton";
 
 import { textValidator } from "../../Components/Controls/Validation";
-
 import { Grid } from "@mui/material";
-// import UploadFileIcon from "@mui/icons-material/UploadFile";
 
 const VerifyEducation = (props) => {
-  // File Upload Code
-
-  useScript("//freeimage.host/sdk/pup.js", "https://freeimage.host/upload");
-  const [selectedFile, setSelectedFile] = useState();
-  const [isFilePicked, setIsFilePicked] = useState(false);
-
-  const changeHandler = (event) => {
-    setSelectedFile(event.target.files[0]);
-    setIsFilePicked(true);
-  };
-
-  const handleUpload = () => {
-    const formData = new FormData();
-    formData.append("File", selectedFile);
-
-    fetch(
-      "https://freeimage.host/api/1/upload?key=6d207e02198a847aa98d0a2a901485a5",
-      {
-        method: "POST",
-        body: formData,
-      }
-    )
-      .then((response) => response.json())
-      .then((result) => {
-        console.log("Success:", result);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
-
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
   var initialFValues = {
     // Education Degree 1 variables
     Degree1Name: "",
@@ -73,22 +33,41 @@ const VerifyEducation = (props) => {
     }
 
     // Validation for Education Degree 2
-    // if('Degree2Name' in fieldValues) {
-    //   temp.Degree2Name = textValidator(fieldValues.Degree2Name)
-    // }
-    // if('DSpecialization2' in fieldValues) {
-    //   temp.DSpecialization2 = textValidator(fieldValues.DSpecialization2)
-    // }
-    // if('DUniversity2' in fieldValues) {
-    //   temp.DUniversity2 = textValidator(fieldValues.DUniversity2)
-    // }
+    if ("Degree2Name" in fieldValues) {
+      if (fieldValues.Degree2Name !== "") {
+        temp.Degree2Name = textValidator(fieldValues.Degree2Name);
+      }
+    }
+    if ("DSpecialization2" in fieldValues) {
+      if (values.Degree2Name === "" && fieldValues.DSpecialization2 !== "") {
+        temp.DSpecialization2 = "Enter Degree 2 Name First";
+      } else if (
+        values.Degree2Name !== "" &&
+        fieldValues.DSpecialization2 === ""
+      ) {
+        temp.DSpecialization2 = textValidator(fieldValues.DSpecialization2);
+      } else {
+        temp.DSpecialization2 = "";
+      }
+    }
+    if ("DUniversity2" in fieldValues) {
+      if (values.Degree2Name === "" && fieldValues.DUniversity2 !== "") {
+        temp.DUniversity2 = "Enter Degree 2 Name First";
+      } else if (values.Degree2Name !== "" && fieldValues.DUniversity2 === "") {
+        temp.DUniversity2 = textValidator(fieldValues.DUniversity2);
+      } else {
+        temp.DUniversity2 = "";
+      }
+    }
 
     setErrors({
       ...temp,
     });
+    if (fieldValues === values)
+      return Object.values(temp).every((x) => x === "");
   };
 
-  const { values, setValues, errors, setErrors, handleInputChange } = useForm(
+  const { values, errors, setErrors, handleInputChange } = useForm(
     initialFValues,
     true,
     validate
@@ -135,43 +114,17 @@ const VerifyEducation = (props) => {
           <Grid item xs={6}>
             <input
               type="file"
-              name="file"
-              onChange={changeHandler}
+              name="Deg1"
+              onChange={(e) =>
+                props.handleUpload(e.target.files[0], "Degree1.pdf")
+              }
               style={{
                 height: "100%",
                 fontSize: "16px",
-                margin: "auto",
                 fontFamily: "Merriweather",
               }}
             ></input>
           </Grid>
-
-          {/* {isFilePicked ? (
-                    <Grid item xs={3}>
-                      <div style={{ fontSize: "10px" }}>
-                        <p>Filename: {selectedFile.name}</p>
-                        <p>Filetype: {selectedFile.type}</p>
-                        <p>Size in bytes: {selectedFile.size}</p>
-                        <p>
-                          lastModifiedDate:{" "}
-                          {selectedFile.lastModifiedDate.toLocaleDateString()}
-                        </p>
-                      </div>
-                    </Grid>
-                  ) : (
-                    <Grid item xs={3}>
-                      <p>Select a file to show details</p>
-                    </Grid>
-                  )} */}
-          {/* <Grid item xs={3}>
-                    <GlassButton
-                      variant="contained"
-                      sx={{ height: "100%" }}
-                      endIcon={<UploadFileIcon />}
-                      name="Upload Degree"
-                      onClick={handleUpload}
-                    ></GlassButton>
-                  </Grid> */}
         </Grid>
         <Grid container spacing={1}>
           <Grid item xs={12}>
@@ -179,7 +132,6 @@ const VerifyEducation = (props) => {
           </Grid>
           <Grid item xs={6}>
             <DarkGlassInput
-              required={true}
               label="Degree Name"
               name="Degree2Name"
               onChange={handleInputChange}
@@ -189,7 +141,6 @@ const VerifyEducation = (props) => {
           </Grid>
           <Grid item xs={6}>
             <DarkGlassInput
-              required={true}
               label="Specialization Field"
               name="DSpecialization2"
               onChange={handleInputChange}
@@ -199,7 +150,6 @@ const VerifyEducation = (props) => {
           </Grid>
           <Grid item xs={6}>
             <DarkGlassInput
-              required={true}
               label="College/University"
               name="DUniversity2"
               onChange={handleInputChange}
@@ -210,24 +160,15 @@ const VerifyEducation = (props) => {
           <Grid item xs={6}>
             <input
               type="file"
-              name="file"
-              onChange={changeHandler}
+              name="Deg2"
+              onChange={(e) => props.handleUpload(e.target.files[0], "Degree2")}
               style={{
                 height: "100%",
                 fontSize: "16px",
-                margin: "auto",
                 fontFamily: "Merriweather",
               }}
             ></input>
           </Grid>
-          {/* <Grid item xs={6}>
-                    <GlassButton
-                      variant="contained"
-                      sx={{ height: "100%" }}
-                      endIcon={<UploadFileIcon />}
-                      name="Upload Degree"
-                    ></GlassButton>
-                  </Grid> */}
         </Grid>
         <div
           style={{
@@ -237,17 +178,15 @@ const VerifyEducation = (props) => {
           }}
         >
           <GlassButton
-            // component={Link}
-            // to="/VerifyCourses"
             variant="contained"
             name="Next"
             onClick={() => {
-              props.mergeData({ values });
-              props.setThisPage(false);
-              props.setNewPage(true);
-              props.completed(true);
-              console.log(props.personData);
-              // console.log(values);
+              if (validate()) {
+                props.mergeData({ values });
+                props.setThisPage(false);
+                props.setNewPage(true);
+                props.completed(true);
+              }
             }}
           ></GlassButton>
         </div>

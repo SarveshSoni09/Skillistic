@@ -42,12 +42,22 @@ const DarkGlassInput = (props) => {
         fullWidth
         required={props.required}
         name={props.name}
+        type={props.type}
         value={props.value}
         onChange={props.onChange}
         {...(props.error && { error: true })}
       />
       {props.error && (
-        <FormHelperText sx={{ color: "#f44336", marginTop: "10px" }}>
+        <FormHelperText
+          sx={{
+            color: "#a00000",
+            textShadow: "none",
+            fontSize: "12px",
+            fontFamily: "Merriweather",
+            // textShadow: "0px 1px 1px rgba(0, 0, 0, 0.5)",
+            marginTop: "10px",
+          }}
+        >
           {props.error}
         </FormHelperText>
       )}

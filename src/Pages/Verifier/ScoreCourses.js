@@ -5,7 +5,7 @@ import { useForm } from "../../Components/Controls/UseForm";
 import DarkGlassInput from "../../Components/Controls/DarkGlassInput";
 import GlassButton from "../../Components/Controls/GlassButton";
 
-import { textValidator } from "../../Components/Controls/Validation";
+import { scoreValidator } from "../../Components/Controls/Validation";
 
 import { Grid } from "@mui/material";
 
@@ -18,11 +18,15 @@ const ScoreCourses = (props) => {
     let temp = { ...errors };
     // Validation for Course Score
     if ("CourseScore" in fieldValues) {
-      temp.CourseScore = textValidator(fieldValues.CourseScore);
+      temp.CourseScore = scoreValidator(fieldValues.CourseScore);
+      fieldValues.CourseScore = parseFloat(fieldValues.CourseScore);
     }
     setErrors({
       ...temp,
     });
+
+    if (fieldValues === values)
+      return Object.values(temp).every((x) => x === "");
   };
 
   const { values, setValues, errors, setErrors, handleInputChange } = useForm(
@@ -33,7 +37,7 @@ const ScoreCourses = (props) => {
 
   return (
     <div className="verification-content">
-      <h3 style={{ fontFamily: "Merriweather" }}>ABC Courses Verification</h3>
+      <h3 style={{ fontFamily: "Merriweather" }}>Courses Verification</h3>
       <div
         className="verification-details"
         style={{ padding: "8px", margin: "0px 24px" }}
@@ -162,12 +166,12 @@ const ScoreCourses = (props) => {
                 fullWidth
                 variant="contained"
                 onClick={() => {
-                  props.mergeScore({ values });
-                  props.setThisScore(false);
-                  props.setNewScore(true);
-                  props.completed(true);
-                  console.log(props.personScore);
-                  // console.log(values);
+                  if (validate()) {
+                    props.mergeScore({ values });
+                    props.setThisScore(false);
+                    props.setNewScore(true);
+                    props.completed(true);
+                  }
                 }}
               ></GlassButton>
             </Grid>

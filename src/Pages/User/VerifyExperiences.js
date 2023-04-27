@@ -1,63 +1,12 @@
-import React, { useState } from "react";
-import SignedNavbar from "../../Components/SignedNavbar";
-import useScript from "../../Components/Hooks/useScript";
+import React from "react";
 import { useForm } from "../../Components/Controls/UseForm";
+import { textValidator } from "../../Components/Controls/Validation";
 
 import DarkGlassInput from "../../Components/Controls/DarkGlassInput";
 import GlassButton from "../../Components/Controls/GlassButton";
-
-import { Link } from "react-router-dom";
-
-import { textValidator } from "../../Components/Controls/Validation";
-
-import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import { Grid } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import UploadFileIcon from "@mui/icons-material/UploadFile";
 
 const VerifyExperiences = (props) => {
-  // File Upload Code
-
-  useScript("//freeimage.host/sdk/pup.js", "https://freeimage.host/upload");
-  const [selectedFile, setSelectedFile] = useState();
-  const [isFilePicked, setIsFilePicked] = useState(false);
-
-  const changeHandler = (event) => {
-    setSelectedFile(event.target.files[0]);
-    setIsFilePicked(true);
-  };
-
-  const handleUpload = () => {
-    const formData = new FormData();
-    formData.append("File", selectedFile);
-
-    fetch(
-      "https://freeimage.host/api/1/upload?key=6d207e02198a847aa98d0a2a901485a5",
-      {
-        method: "POST",
-        body: formData,
-      }
-    )
-      .then((response) => response.json())
-      .then((result) => {
-        console.log("Success:", result);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
-
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
   var initialFValues = {
     // Experience Company 1 variables
     WCompany1: "",
@@ -79,49 +28,123 @@ const VerifyExperiences = (props) => {
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
     // Validation for Work Experience 1
-    // if('WCompany1' in fieldValues) {
-    //   temp.WCompany1 = textValidator(fieldValues.WCompany1)
-    // }
-    // if('WPosition1' in fieldValues) {
-    //   temp.WPosition1 = textValidator(fieldValues.WPosition1)
-    // }
-    // if('WDuration1' in fieldValues) {
-    //   temp.WDuration1 = textValidator(fieldValues.WDuration1)
-    // }
-    // if('WDesc1' in fieldValues) {
-    //   temp.WDesc1 = textValidator(fieldValues.WDesc1)
-    // }
+    if ("WCompany1" in fieldValues) {
+      if (fieldValues.WCompany1 !== "") {
+        temp.WCompany1 = textValidator(fieldValues.WCompany1);
+      } else {
+        temp.WPosition1 = "";
+        temp.WDuration1 = "";
+        temp.WDesc1 = "";
+      }
+    }
+    if ("WPosition1" in fieldValues) {
+      if (values.WCompany1 === "" && fieldValues.WPosition1 !== "") {
+        temp.WPosition1 = "Enter Company 1 Name First";
+      } else if (values.WCompany1 !== "" && fieldValues.WPosition1 === "") {
+        temp.WPosition1 = textValidator(fieldValues.WPosition1);
+      } else {
+        temp.WPosition1 = "";
+      }
+    }
+    if ("WDuration1" in fieldValues) {
+      if (values.WCompany1 === "" && fieldValues.WDuration1 !== "") {
+        temp.WDuration1 = "Enter Company 1 Name First";
+      } else if (values.WCompany1 !== "" && fieldValues.WDuration1 === "") {
+        temp.WDuration1 = textValidator(fieldValues.WDuration1);
+      } else {
+        temp.WDuration1 = "";
+      }
+    }
+    if ("WDesc1" in fieldValues) {
+      if (values.WCompany1 === "" && fieldValues.WDesc1 !== "") {
+        temp.WDesc1 = "Enter Company 1 Name First";
+      } else if (values.WCompany1 !== "" && fieldValues.WDesc1 === "") {
+        temp.WDesc1 = textValidator(fieldValues.WDesc1);
+      } else {
+        temp.WDesc1 = "";
+      }
+    }
 
     // Validation for Work Experience 2
-    // if('WCompany1' in fieldValues) {
-    //   temp.WCompany1 = textValidator(fieldValues.WCompany1)
-    // }
-    // if('WPosition1' in fieldValues) {
-    //   temp.WPosition1 = textValidator(fieldValues.WPosition1)
-    // }
-    // if('WDuration1' in fieldValues) {
-    //   temp.WDuration1 = textValidator(fieldValues.WDuration1)
-    // }
-    // if('WDesc1' in fieldValues) {
-    //   temp.WDesc1 = textValidator(fieldValues.WDesc1)
-    // }
+    if ("WCompany2" in fieldValues) {
+      if (fieldValues.WCompany2 !== "") {
+        temp.WCompany2 = textValidator(fieldValues.WCompany2);
+      } else {
+        temp.WPosition2 = "";
+        temp.WDuration2 = "";
+        temp.WDesc2 = "";
+      }
+    }
+    if ("WPosition2" in fieldValues) {
+      if (values.WCompany2 === "" && fieldValues.WPosition2 !== "") {
+        temp.WPosition2 = "Enter Company 2 Name First";
+      } else if (values.WCompany2 !== "" && fieldValues.WPosition2 === "") {
+        temp.WPosition2 = textValidator(fieldValues.WPosition2);
+      } else {
+        temp.WPosition2 = "";
+      }
+    }
+    if ("WDuration2" in fieldValues) {
+      if (values.WCompany2 === "" && fieldValues.WDuration2 !== "") {
+        temp.WDuration2 = "Enter Company 2 Name First";
+      } else if (values.WCompany2 !== "" && fieldValues.WDuration2 === "") {
+        temp.WDuration2 = textValidator(fieldValues.WDuration2);
+      } else {
+        temp.WDuration2 = "";
+      }
+    }
+    if ("WDesc2" in fieldValues) {
+      if (values.WCompany2 === "" && fieldValues.WDesc2 !== "") {
+        temp.WDesc2 = "Enter Company 2 Name First";
+      } else if (values.WCompany2 !== "" && fieldValues.WDesc2 === "") {
+        temp.WDesc2 = textValidator(fieldValues.WDesc2);
+      } else {
+        temp.WDesc2 = "";
+      }
+    }
 
     // Validation for Work Experience 3
-    // if('WCompany1' in fieldValues) {
-    //   temp.WCompany1 = textValidator(fieldValues.WCompany1)
-    // }
-    // if('WPosition1' in fieldValues) {
-    //   temp.WPosition1 = textValidator(fieldValues.WPosition1)
-    // }
-    // if('WDuration1' in fieldValues) {
-    //   temp.WDuration1 = textValidator(fieldValues.WDuration1)
-    // }
-    // if('WDesc1' in fieldValues) {
-    //   temp.WDesc1 = textValidator(fieldValues.WDesc1)
-    // }
+    if ("WCompany3" in fieldValues) {
+      if (fieldValues.WCompany3 !== "") {
+        temp.WCompany3 = textValidator(fieldValues.WCompany3);
+      } else {
+        temp.WPosition3 = "";
+        temp.WDuration3 = "";
+        temp.WDesc3 = "";
+      }
+    }
+    if ("WPosition3" in fieldValues) {
+      if (values.WCompany3 === "" && fieldValues.WPosition3 !== "") {
+        temp.WPosition3 = "Enter Company 3 Name First";
+      } else if (values.WCompany3 !== "" && fieldValues.WPosition3 === "") {
+        temp.WPosition3 = textValidator(fieldValues.WPosition3);
+      } else {
+        temp.WPosition3 = "";
+      }
+    }
+    if ("WDuration3" in fieldValues) {
+      if (values.WCompany3 === "" && fieldValues.WDuration3 !== "") {
+        temp.WDuration3 = "Enter Company 3 Name First";
+      } else if (values.WCompany3 !== "" && fieldValues.WDuration3 === "") {
+        temp.WDuration3 = textValidator(fieldValues.WDuration3);
+      } else {
+        temp.WDuration3 = "";
+      }
+    }
+    if ("WDesc3" in fieldValues) {
+      if (values.WCompany3 === "" && fieldValues.WDesc3 !== "") {
+        temp.WDesc3 = "Enter Company 3 Name First";
+      } else if (values.WCompany3 !== "" && fieldValues.WDesc3 === "") {
+        temp.WDesc3 = textValidator(fieldValues.WDesc3);
+      } else {
+        temp.WDesc3 = "";
+      }
+    }
     setErrors({
       ...temp,
     });
+    if (fieldValues === values)
+      return Object.values(temp).every((x) => x === "");
   };
 
   const { values, setValues, errors, setErrors, handleInputChange } = useForm(
@@ -201,13 +224,16 @@ const VerifyExperiences = (props) => {
             ></DarkGlassInput>
           </Grid>
           <Grid item xs={4}>
-            <GlassButton
-              variant="contained"
-              fullWidth
-              sx={{ height: "100%" }}
-              endIcon={<UploadFileIcon />}
-              name="Upload Proof"
-            ></GlassButton>
+            <input
+              type="file"
+              name="WorkEx1"
+              onChange={(e) => props.handleUpload(e.target.files[0], "WorkEx1")}
+              style={{
+                height: "100%",
+                fontSize: "16px",
+                fontFamily: "Merriweather",
+              }}
+            ></input>
           </Grid>
         </Grid>
         <Grid container spacing={1}>
@@ -253,13 +279,16 @@ const VerifyExperiences = (props) => {
             ></DarkGlassInput>
           </Grid>
           <Grid item xs={4}>
-            <GlassButton
-              variant="contained"
-              fullWidth
-              sx={{ height: "100%" }}
-              endIcon={<UploadFileIcon />}
-              name="Upload Proof"
-            ></GlassButton>
+            <input
+              type="file"
+              name="WorkEx2"
+              onChange={(e) => props.handleUpload(e.target.files[0], "WorkEx2")}
+              style={{
+                height: "100%",
+                fontSize: "16px",
+                fontFamily: "Merriweather",
+              }}
+            ></input>
           </Grid>
         </Grid>
         <Grid container spacing={1}>
@@ -305,13 +334,16 @@ const VerifyExperiences = (props) => {
             ></DarkGlassInput>
           </Grid>
           <Grid item xs={4}>
-            <GlassButton
-              variant="contained"
-              fullWidth
-              sx={{ height: "100%" }}
-              endIcon={<UploadFileIcon />}
-              name="Upload Proof"
-            ></GlassButton>
+            <input
+              type="file"
+              name="WorkEx3"
+              onChange={(e) => props.handleUpload(e.target.files[0], "WorkEx3")}
+              style={{
+                height: "100%",
+                fontSize: "16px",
+                fontFamily: "Merriweather",
+              }}
+            ></input>
           </Grid>
         </Grid>
         <div
@@ -324,14 +356,13 @@ const VerifyExperiences = (props) => {
           <GlassButton
             variant="contained"
             name="Next"
-            // component={Link}
-            // to="/VerifyProjects"
             onClick={() => {
-              props.mergeData({ values });
-              props.setThisPage(false);
-              props.setNewPage(true);
-              props.completed(true);
-              console.log(props.personData);
+              if (validate()) {
+                props.mergeData({ values });
+                props.setThisPage(false);
+                props.setNewPage(true);
+                props.completed(true);
+              }
             }}
           ></GlassButton>
         </div>

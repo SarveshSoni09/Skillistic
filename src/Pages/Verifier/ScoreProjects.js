@@ -4,24 +4,28 @@ import { useForm } from "../../Components/Controls/UseForm";
 import DarkGlassInput from "../../Components/Controls/DarkGlassInput";
 import GlassButton from "../../Components/Controls/GlassButton";
 
-import { textValidator } from "../../Components/Controls/Validation";
+import { scoreValidator } from "../../Components/Controls/Validation";
 
 import { Grid } from "@mui/material";
 
 const ScoreProjects = (props) => {
   var initialFValues = {
-    ProjectScore: 0.0,
+    ProjectScore: 0,
   };
 
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
     // Validation for Project Score
     if ("ProjectScore" in fieldValues) {
-      temp.ProjectScore = textValidator(fieldValues.ProjectScore);
+      temp.ProjectScore = scoreValidator(fieldValues.ProjectScore);
+      fieldValues.ProjectScore = parseFloat(fieldValues.ProjectScore);
     }
     setErrors({
       ...temp,
     });
+
+    if (fieldValues === values)
+      return Object.values(temp).every((x) => x === "");
   };
 
   const { values, setValues, errors, setErrors, handleInputChange } = useForm(
@@ -132,12 +136,12 @@ const ScoreProjects = (props) => {
                 variant="contained"
                 fullWidth
                 onClick={() => {
-                  props.mergeScore({ values });
-                  props.setThisScore(false);
-                  props.setNewScore(true);
-                  props.completed(true);
-                  console.log(props.personScore);
-                  // console.log(values);
+                  if (validate()) {
+                    props.mergeScore({ values });
+                    props.setThisScore(false);
+                    props.setNewScore(true);
+                    props.completed(true);
+                  }
                 }}
               ></GlassButton>
             </Grid>

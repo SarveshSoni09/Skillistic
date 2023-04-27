@@ -3,11 +3,56 @@ import { Link } from "react-router-dom";
 import GlassButton from "../../Components/Controls/GlassButton";
 
 import { Grid } from "@mui/material";
+import { setDoc } from "firebase/firestore";
+import { db } from "../../FirebaseConfig";
 
 const ScoreSubmit = (props) => {
-  console.log(props.personScore);
+  const scoreArr = Object.values(props.personScore);
+  var scoreSum = 0;
+  scoreArr.forEach((x) => {
+    scoreSum += x;
+  });
 
-  // Insert Algorithm to calculate score of user based on all the scores
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      var skillScore;
+      var finalScore = 0;
+      var status;
+
+      if (props.personData.SkillScore) {
+        skillScore = props.personData.SkillScore;
+        skillScore.push(scoreSum);
+      } else {
+        skillScore = [scoreSum];
+      }
+
+      if (skillScore.length === parseInt(props.personData.NumberOfVerifiers)) {
+        skillScore.forEach((x) => {
+          finalScore = +x;
+        });
+        status = "Verified";
+        // Insert NFT generation code here
+      } else {
+        finalScore = null;
+        status = "Pending";
+      }
+
+      let newData = {
+        SkillScore: skillScore,
+        FinalScore: finalScore,
+        Status: status,
+      };
+
+      // If data successfully updated, Payment Receving Transaction
+
+      // Updating the database
+      console.log(newData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="verification-content">
@@ -27,15 +72,14 @@ const ScoreSubmit = (props) => {
             }}
           >
             <Grid item xs={10}>
-              The Final score of the User is 87.9
+              The Final score of the User is {scoreSum}
             </Grid>
             <Grid item xs={2}>
               <GlassButton
                 name="Submit"
                 variant="contained"
-                component={Link}
-                to="/Verifications"
                 fullWidth
+                onClick={handleSubmit}
               ></GlassButton>
             </Grid>
           </Grid>

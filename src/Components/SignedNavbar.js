@@ -1,8 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 import { AppBar, Toolbar, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { getAuth, signOut } from "firebase/auth";
+
+import { AuthContext } from "../Context/AuthContext";
 
 const SignedNavbar = () => {
+  const navigate = useNavigate();
+  const { dispatch } = useContext(AuthContext);
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    // console.log(email, password);
+
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        dispatch({ type: "LOGOUT", payload: null });
+        navigate("/Login");
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
+
   return (
     <AppBar
       position="static"
@@ -28,7 +50,7 @@ const SignedNavbar = () => {
           <Link to="/Status" className="navlink">
             Verification Status
           </Link>
-          <Link to="/Login" className="navlink">
+          <Link onClick={handleLogout} className="navlink">
             Log Out
           </Link>
         </div>
